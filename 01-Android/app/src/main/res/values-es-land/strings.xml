@@ -1,0 +1,6 @@
+<resources>
+    <string name= "app_name"> MovCompVJTR</string>
+    <string name= "hola_mundo" translatable="false"> hola land español</string>
+    <color name= "color_hola_mundo">#1AA870</color>
+    <color name= "color_fondo_hola_mundo">#B4D400</color>
+</resources>

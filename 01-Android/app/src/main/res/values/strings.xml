@@ -1,6 +1,9 @@
 <resources>
-    <string name="app_name">MovCompVJTR</string>
-    <string name="action_settings">Settings</string>
+    <string name="app_name"> MovCompVJTR</string>
+    <string name="hola_mundo" translatable="false"> hola mundo port ingles</string>
+    <color name="color_hola_mundo">#1AA870</color>
+    <color name="color_fondo_hola_mundo">#B4D400</color>
+    <string name="title_activity_aciclo_vida">ACicloVida</string>
     <!-- Strings used for fragments for navigation -->
     <string name="first_fragment_label">First Fragment</string>
     <string name="second_fragment_label">Second Fragment</string>
