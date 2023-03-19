@@ -58,7 +58,7 @@ class CrearCompetencia : AppCompatActivity() {
         val longCompetenciaIngreso = longCompetencia.text.toString().toDouble()
         val idCompetidorIngreso = this.idCompetidor.toString()
 
-        val nuevoProducto = hashMapOf<String, Any>(
+        val nuevaCompetencia = hashMapOf<String, Any>(
             "Nombre" to ingresoNombre,
             "Precio" to ingresoPrecio,
             "Disponibilidad" to ingresoDis,
@@ -72,7 +72,7 @@ class CrearCompetencia : AppCompatActivity() {
         val referencia = db.collection("competencias")
 
         referencia
-            .add(nuevoProducto)
+            .add(nuevaCompetencia)
             .addOnSuccessListener {
                 nombre_producto.text = ""
                 precio.text = ""
