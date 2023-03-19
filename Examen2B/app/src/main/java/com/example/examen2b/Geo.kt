@@ -22,8 +22,8 @@ class Geo : AppCompatActivity() {
 
 
 
-        Log.i("RECIBIENDO EL PRODUCTO", "lATITUD ${producto!!.longitud}")
-        Log.i("RECIBIENDO EL PRODUCTO", "lONGITUD ${producto!!.latitud}")
+        Log.i("RECIBIENDO LA COMPETENCIA", "lATITUD ${producto!!.longitud}")
+        Log.i("RECIBIENDO LA COMPETENCIA", "lONGITUD ${producto!!.latitud}")
 
         var latitud = producto!!.latitud.toString().toDouble()
         var longitUd = producto!!.longitud.toString().toDouble()

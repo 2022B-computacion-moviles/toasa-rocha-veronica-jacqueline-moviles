@@ -7,7 +7,7 @@
         android:id="@+id/men_eliminar"
         android:title="Eliminar" />
     <item
-        android:id="@+id/men_ver_productos"
+        android:id="@+id/men_ver_competencias"
         android:title="Competencia" />
 
 </menu>

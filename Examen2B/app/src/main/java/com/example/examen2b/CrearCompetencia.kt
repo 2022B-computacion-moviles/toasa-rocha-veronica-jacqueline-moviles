@@ -12,24 +12,24 @@ import com.google.firebase.ktx.Firebase
 
 class CrearCompetencia : AppCompatActivity() {
     var posicionItemSelecionado = 0
-    var idPersona: String? = ""
+    var idCompetidor: String? = ""
 
     override fun onCreate(savedInstanceState: Bundle?) {
         super.onCreate(savedInstanceState)
         setContentView(R.layout.activity_crear_competencia)
 
-        val persona = intent.getParcelableExtra<FirebaseCompetidorDTO>("persona")
+        val competidor = intent.getParcelableExtra<FirebaseCompetidorDTO>("competidor")
 
-        idPersona = persona!!.id
+        idCompetidor = competidor!!.id
 
-        val idPersona = findViewById<TextView>(R.id.txt_id_persona_cp)
-        idPersona.text = persona.id.toString()
+        val idCompetidor = findViewById<TextView>(R.id.txt_id_persona_cp)
+        idCompetidor.text = competidor.id.toString()
 
 
-        val bt_ingresar_producto = findViewById<Button>(R.id.btn_guardarp)
+        val bt_ingresar_competencia = findViewById<Button>(R.id.btn_guardarp)
 
-        bt_ingresar_producto.setOnClickListener {
-            crearProducto()
+        bt_ingresar_competencia.setOnClickListener {
+            crearCompetencia()
             abrirActividad(Competidor::class.java)
         }
 
@@ -39,37 +39,37 @@ class CrearCompetencia : AppCompatActivity() {
         }
     }
 
-    fun crearProducto(){
+    fun crearCompetencia(){
         val nombre_producto = findViewById<TextView>(R.id.txt_nombre_producto)
         val precio = findViewById<TextView>(R.id.txt_precio)
         val disp = findViewById<TextView>(R.id.txt_disponibilidad)
         val fechaIng = findViewById<TextView>(R.id.txt_fec_ing)
-        val cantidad = findViewById<TextView>(R.id.txt_cantidad)
-        val idPersona = findViewById<TextView>(R.id.txt_id_persona_cp)
-        val latProducto = findViewById<TextView>(R.id.txt_latitud)
-        val longProducto = findViewById<TextView>(R.id.txt_longitud)
+        val participantes = findViewById<TextView>(R.id.txt_cantidad)
+        val idCompetidor = findViewById<TextView>(R.id.txt_id_persona_cp)
+        val latCcompetencia = findViewById<TextView>(R.id.txt_latitud)
+        val longCompetencia = findViewById<TextView>(R.id.txt_longitud)
 
         val ingresoNombre = nombre_producto.text.toString()
         val ingresoPrecio = precio.text.toString().toDouble()
         val ingresoDis = disp.text.toString()
         val ingresoFI = fechaIng.text.toString()
-        val ingresoCantidad = Integer.parseInt(cantidad.text.toString())
-        val latProductoIngreso = latProducto.text.toString().toDouble()
-        val longProductoIngreso = longProducto.text.toString().toDouble()
-        val idPersonaIngreso = this.idPersona.toString()
+        val ingresoCantidad = Integer.parseInt(participantes.text.toString())
+        val latCompetenciaIngreso = latCcompetencia.text.toString().toDouble()
+        val longCompetenciaIngreso = longCompetencia.text.toString().toDouble()
+        val idCompetidorIngreso = this.idCompetidor.toString()
 
         val nuevoProducto = hashMapOf<String, Any>(
             "Nombre" to ingresoNombre,
             "Precio" to ingresoPrecio,
             "Disponibilidad" to ingresoDis,
             "Fecha de Ingreso" to ingresoFI,
-            "Cantidad" to ingresoCantidad,
-            "latitud" to latProductoIngreso,
-            "longitud" to longProductoIngreso,
-            "idPersona" to idPersonaIngreso,
+            "Participantes" to ingresoCantidad,
+            "latitud" to latCompetenciaIngreso,
+            "longitud" to longCompetenciaIngreso,
+            "idPersona" to idCompetidorIngreso,
         )
         val db = Firebase.firestore
-        val referencia = db.collection("productos")
+        val referencia = db.collection("competencias")
 
         referencia
             .add(nuevoProducto)
@@ -78,13 +78,13 @@ class CrearCompetencia : AppCompatActivity() {
                 precio.text = ""
                 disp.text = ""
                 fechaIng.text = ""
-                cantidad.text = ""
-                idPersona.text = ""
-                latProducto.text = ""
-                longProducto.text = ""
+                participantes.text = ""
+                idCompetidor.text = ""
+                latCcompetencia.text = ""
+                longCompetencia.text = ""
             }
             .addOnFailureListener {
-                Log.i("firestore-producto", "no se pudo cargar los datos al firestore ")
+                Log.i("firestore-competencia", "no se pudo cargar los datos al firestore ")
             }
 
     }

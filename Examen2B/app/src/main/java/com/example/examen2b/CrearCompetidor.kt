@@ -49,7 +49,7 @@ class CrearCompetidor : AppCompatActivity() {
             "Teléfono" to telefonoIngreso
         )
         val db = Firebase.firestore
-        val referencia = db.collection("personas")
+        val referencia = db.collection("competidores")
 
         referencia
             .add(nuevaPersona)
@@ -64,7 +64,7 @@ class CrearCompetidor : AppCompatActivity() {
 
             }
             .addOnFailureListener {
-                Log.i("firestore-persona", "no se pudo cargar los datos al firestore ")
+                Log.i("firestore-competidor", "no se pudo cargar los datos al firestore ")
             }
 
 

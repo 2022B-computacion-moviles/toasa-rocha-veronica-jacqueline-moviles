@@ -4,7 +4,7 @@
     xmlns:tools="http://schemas.android.com/tools"
     android:layout_width="match_parent"
     android:layout_height="match_parent"
-    android:background="@color/teal_200"
+    android:background="@color/purple_200"
     tools:context=".Competencia">
 
     <TextView
@@ -12,7 +12,8 @@
         android:layout_width="wrap_content"
         android:layout_height="wrap_content"
         android:layout_marginTop="44dp"
-        android:text="@string/producto_titulo"
+        android:text="COMPETENCIA
+"
         android:textSize="34sp"
         app:layout_constraintEnd_toEndOf="parent"
         app:layout_constraintHorizontal_bias="0.497"
@@ -44,7 +45,7 @@
         android:layout_width="wrap_content"
         android:layout_height="wrap_content"
         android:layout_marginTop="64dp"
-        android:hint="@string/competencia_competidor"
+        android:hint="Nombre Competidor"
         android:textSize="16sp"
         app:layout_constraintEnd_toStartOf="@+id/btn_producto_nuevo"
         app:layout_constraintStart_toStartOf="parent"

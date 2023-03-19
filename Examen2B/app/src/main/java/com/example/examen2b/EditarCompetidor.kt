@@ -9,15 +9,14 @@ import com.example.examen2b.dto.FirebaseCompetidorDTO
 import com.google.firebase.firestore.FirebaseFirestore
 
 class EditarCompetidor : AppCompatActivity() {
-    var idPersona: String? = null
+    var idCompetidor: String? = null
 
     override fun onCreate(savedInstanceState: Bundle?) {
         super.onCreate(savedInstanceState)
         setContentView(R.layout.activity_editar_competidor)
 
-        val persona = intent.getParcelableExtra<FirebaseCompetidorDTO>("persona")
-        idPersona = persona!!.id
-
+        val competidor = intent.getParcelableExtra<FirebaseCompetidorDTO>("competidor")
+        idCompetidor = competidor!!.id
 
         val txtID = findViewById<TextView>(R.id.txt_id_persona_editar)
         val txtNombre = findViewById<TextView>(R.id.txt_disp_editar)
@@ -26,12 +25,12 @@ class EditarCompetidor : AppCompatActivity() {
         val txtEmail = findViewById<TextView>(R.id.txt_email_editar)
         val txtTelefono = findViewById<TextView>(R.id.txt_telefono_editar)
 
-        txtID.text = persona!!.id
-        txtNombre.text = persona!!.nombre
-        txtApellido.text = persona!!.apellido
-        txtEdad.text = persona!!.edad.toString()
-        txtEmail.text = persona!!.email
-        txtTelefono.text = persona!!.telefono
+        txtID.text = competidor!!.id
+        txtNombre.text = competidor!!.nombre
+        txtApellido.text = competidor!!.apellido
+        txtEdad.text = competidor!!.edad.toString()
+        txtEmail.text = competidor!!.email
+        txtTelefono.text = competidor!!.telefono
 
         val btn_editar_empresa = findViewById<Button>(R.id.btn_actualizar_persona)
         btn_editar_empresa.setOnClickListener {
@@ -46,7 +45,7 @@ class EditarCompetidor : AppCompatActivity() {
 
             val db = FirebaseFirestore.getInstance()
             db.collection("personas")
-                .document(idPersona!!)
+                .document(idCompetidor!!)
                 .set(
                     actualizarUsuario
                 )

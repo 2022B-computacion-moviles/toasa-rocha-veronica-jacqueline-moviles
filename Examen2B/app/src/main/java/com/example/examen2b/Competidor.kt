@@ -17,7 +17,7 @@ import com.google.firebase.firestore.ktx.firestore
 import com.google.firebase.ktx.Firebase
 
 class Competidor : AppCompatActivity() {
-    var CompetidorSeleccioanda: FirebaseCompetidorDTO? = null
+    var CompetidorSeleccioando: FirebaseCompetidorDTO? = null
     val CODIGO_RESPUESTA_INTENT_EXPLICITO = 400
     var adapter: ArrayAdapter<FirebaseCompetidorDTO>? = null
     var arregloCompetidores = arrayListOf<FirebaseCompetidorDTO>()
@@ -34,16 +34,16 @@ class Competidor : AppCompatActivity() {
             arregloCompetidores
         )
 
-        val listPersonas = findViewById<ListView>(R.id.list_view_personas)
-        listPersonas.adapter = adapter
-        listPersonas.onItemSelectedListener = object : AdapterView.OnItemSelectedListener{
+        val listCompetidores = findViewById<ListView>(R.id.list_view_personas)
+        listCompetidores.adapter = adapter
+        listCompetidores.onItemSelectedListener = object : AdapterView.OnItemSelectedListener{
             override fun onItemSelected(
                 parent: AdapterView<*>?,
                 view: View?,
                 position: Int,
                 id: Long)
             {
-                CompetidorSeleccioanda = arregloCompetidores[position]
+                CompetidorSeleccioando = arregloCompetidores[position]
             }
 
             override fun onNothingSelected(
@@ -53,12 +53,12 @@ class Competidor : AppCompatActivity() {
             }
         }
 
-        val btnCrearPersona = findViewById<Button>(R.id.btn_crear)
-        btnCrearPersona.setOnClickListener {
+        val btnCrearCompetidor = findViewById<Button>(R.id.btn_crear)
+        btnCrearCompetidor.setOnClickListener {
             abrirActiviad(CrearCompetidor::class.java)
         }
 
-        registerForContextMenu(listPersonas)
+        registerForContextMenu(listCompetidores)
     }
 
     fun uploadCompetidor(){
@@ -69,15 +69,15 @@ class Competidor : AppCompatActivity() {
             .get()
             .addOnSuccessListener {
                 for (document in it){
-                    var persona = document.toObject(FirebaseCompetidorDTO::class.java)
-                    persona!!.id = document.id
-                    persona!!.nombre = document.get("Nombre").toString()
-                    persona!!.apellido = document.get("Apellido").toString()
-                    persona!!.edad = document.getLong("Edad")!!.toInt()
-                    persona!!.email = document.get("Correo Electrónico").toString()
-                    persona!!.telefono = document.get("Teléfono").toString()
+                    var Competidor = document.toObject(FirebaseCompetidorDTO::class.java)
+                    Competidor!!.id = document.id
+                    Competidor!!.nombre = document.get("Nombre").toString()
+                    Competidor!!.apellido = document.get("Apellido").toString()
+                    Competidor!!.edad = document.getLong("Edad")!!.toInt()
+                    Competidor!!.email = document.get("Correo Electrónico").toString()
+                    Competidor!!.telefono = document.get("Teléfono").toString()
 
-                    arregloCompetidores.add(persona)
+                    arregloCompetidores.add(Competidor)
                     adapter?.notifyDataSetChanged()
                 }
             }
@@ -127,7 +127,7 @@ class Competidor : AppCompatActivity() {
             R.id.men_eliminar -> {
                 Log.i("list-view", "Eliminar ${idElemento.id}")
                 val db = FirebaseFirestore.getInstance()
-                db.collection("personas")
+                db.collection("competidores")
                     .document(idElemento.id!!)
                     .delete()
                     .addOnSuccessListener {
@@ -138,7 +138,7 @@ class Competidor : AppCompatActivity() {
 
 
 
-            R.id.men_ver_productos -> {
+            R.id.men_ver_competencias -> {
                 abrirActividadporId(Competencia::class.java, idElemento)
                 return true
             }

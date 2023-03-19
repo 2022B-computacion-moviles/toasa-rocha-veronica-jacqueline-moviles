@@ -18,7 +18,7 @@ class Competencia : AppCompatActivity() {
     var posiconElementoSeleccionado = 0
     val CODIGO_RESPUESTA_INTENT_EXPLICITO = 400
     var idCompetidor: String? = ""
-    var CompetidorSeleccionada: FirebaseCompetenciaDTO? = null
+    var CompetidorSeleccionado: FirebaseCompetenciaDTO? = null
     var adpatador: ArrayAdapter<FirebaseCompetenciaDTO>? = null
     var arregloCompetencias = arrayListOf<FirebaseCompetenciaDTO>()
 
@@ -26,13 +26,13 @@ class Competencia : AppCompatActivity() {
         super.onCreate(savedInstanceState)
         setContentView(R.layout.activity_competencia)
 
-        val Competidor = intent.getParcelableExtra<FirebaseCompetidorDTO>("persona")
+        val Competidor = intent.getParcelableExtra<FirebaseCompetidorDTO>("competidor")
         idCompetidor = Competidor!!.id
-        val idenPersona = findViewById<TextView>(R.id.txt_nombre_competidor_competencia)
-        idenPersona.text = Competidor.nombre
+        val idenCompetidor = findViewById<TextView>(R.id.txt_nombre_competidor_competencia)
+        idenCompetidor.text = Competidor.nombre
 
 
-        cargarProducto(idCompetidor!!)
+        cargarCompetencia(idCompetidor!!)
         adpatador = ArrayAdapter(
             this,
             android.R.layout.simple_list_item_1,
@@ -40,30 +40,30 @@ class Competencia : AppCompatActivity() {
 
         )
 
-        val listViewProductos = findViewById<ListView>(R.id.list_view_productos)
-        listViewProductos.adapter = adpatador
-        listViewProductos.onItemSelectedListener = object : AdapterView.OnItemSelectedListener{
+        val listViewCompetencias = findViewById<ListView>(R.id.list_view_productos)
+        listViewCompetencias.adapter = adpatador
+        listViewCompetencias.onItemSelectedListener = object : AdapterView.OnItemSelectedListener{
             override fun onItemSelected(
                 parent: AdapterView<*>?,
                 view: View?,
                 position: Int,
                 id: Long)
             {
-                CompetidorSeleccionada = arregloCompetencias[position]
+                CompetidorSeleccionado = arregloCompetencias[position]
             }
 
             override fun onNothingSelected(
                 p0: AdapterView<*>?)
             {
-                Log.i("firestore-persona", "No ha seleccionado ningun item")
+                Log.i("firestore-competidor", "No ha seleccionado ningun item")
             }
         }
 
 
-        registerForContextMenu(listViewProductos)
+        registerForContextMenu(listViewCompetencias)
 
-        val btnnuevoProducto = findViewById<Button>(R.id.btn_producto_nuevo)
-        btnnuevoProducto.setOnClickListener {
+        val btnnuevoCompetencia = findViewById<Button>(R.id.btn_producto_nuevo)
+        btnnuevoCompetencia.setOnClickListener {
             abrirActiviad(CrearCompetencia::class.java, Competidor!!)
         }
 
@@ -77,7 +77,7 @@ class Competencia : AppCompatActivity() {
         super.onCreateContextMenu(menu, v, menuInfo)
 
         val inflater = menuInflater
-        inflater.inflate(R.menu.menuproducto,menu)
+        inflater.inflate(R.menu.menucompetencia,menu)
 
         val info = menuInfo as AdapterView.AdapterContextMenuInfo
         val id = info.position
@@ -90,20 +90,20 @@ class Competencia : AppCompatActivity() {
 
 
     override fun onContextItemSelected(item: MenuItem): Boolean {
-        var selproducto = arregloCompetencias[posiconElementoSeleccionado]
+        var selcompetencia = arregloCompetencias[posiconElementoSeleccionado]
         return when(item?.itemId){
             // Editar
             R.id.editar_Competencia -> {
-                Log.i("list-view", "Editar ${selproducto} ")
-                abrirActividadProductos(EditarCompetencia::class.java, selproducto)
+                Log.i("list-view", "Editar ${selcompetencia} ")
+                abrirActividadCompetencia(EditarCompetencia::class.java, selcompetencia)
                 return true
             }
             //Eliinar
             R.id.eliminar_Competencia -> {
-                Log.i("list-view", "Eliminar ${selproducto} ")
+                Log.i("list-view", "Eliminar ${selcompetencia} ")
                 val db = FirebaseFirestore.getInstance()
                 db.collection("competencias")
-                    .document(selproducto.id!!)
+                    .document(selcompetencia.id!!)
                     .delete()
                     .addOnSuccessListener {
                         adpatador?.remove(adpatador!!.getItem(posiconElementoSeleccionado))
@@ -113,14 +113,14 @@ class Competencia : AppCompatActivity() {
                 return true
             }
             R.id.ver_mapa -> {
-                abrirActividadProductos(Geo::class.java, selproducto)
+                abrirActividadCompetencia(Geo::class.java, selcompetencia)
                 return true
             }
             else -> super.onContextItemSelected(item)
         }
     }
 
-    fun abrirActividadProductos(
+    fun abrirActividadCompetencia(
         clase: Class<*>,
         producto: FirebaseCompetenciaDTO
     ){
@@ -145,28 +145,28 @@ class Competencia : AppCompatActivity() {
     }
 
 
-    fun cargarProducto(idCompetidor: String){
+    fun cargarCompetencia(idCompetidor: String){
         val db = Firebase.firestore
         val referencia = db.collection("competencia")
 
         referencia
-            .whereEqualTo("idPersona", idCompetidor)
+            .whereEqualTo("idCompetidor", idCompetidor)
             .get()
             .addOnSuccessListener {
                 for (document in it){
 
-                    var producto = document.toObject(FirebaseCompetenciaDTO::class.java)
-                    producto!!.id = document.id
-                    producto!!.nombre_Competencia = document.get("Nombre").toString()
-                    producto!!.precio = document.getDouble("Precio")
-                    producto!!.disponibilidad = document.get("Disponibilidad").toString()
-                    producto!!.fecha = document.get("Fecha de Ingreso").toString()
-                    producto!!.cantidad = document.getLong("Cantidad")!!.toInt()
-                    producto!!.latitud = document.getDouble("latitud")
-                    producto!!.longitud = document.getDouble("longitud")
-                    producto!!.idCompetidor = document.get("idCompetidor").toString()
+                    var Competencia = document.toObject(FirebaseCompetenciaDTO::class.java)
+                    Competencia!!.id = document.id
+                    Competencia!!.nombre_Competencia = document.get("Nombre").toString()
+                    Competencia!!.precio = document.getDouble("Precio")
+                    Competencia!!.disponibilidad = document.get("Disponibilidad").toString()
+                    Competencia!!.fecha = document.get("Fecha de Ingreso").toString()
+                    Competencia!!.participantes = document.getLong("Participantes")!!.toInt()
+                    Competencia!!.latitud = document.getDouble("latitud")
+                    Competencia!!.longitud = document.getDouble("longitud")
+                    Competencia!!.idCompetidor = document.get("idCompetidor").toString()
 
-                    arregloCompetencias.add(producto)
+                    arregloCompetencias.add(Competencia)
                     adpatador?.notifyDataSetChanged()
 
                 }

@@ -10,7 +10,7 @@ class FirebaseCompetenciaDTO (
     var precio: Double? = 0.0,
     var disponibilidad: String? = "",
     var fecha: String? = "",
-    var cantidad: Int = 0,
+    var participantes: Int = 0,
     var latitud: Double? = 0.0,
     var longitud: Double? = 0.0,
     var idCompetidor: String? = "",
@@ -37,7 +37,7 @@ class FirebaseCompetenciaDTO (
                 "Precio:  ${precio} -" +
                 "Disponibilidad: ${disponibilidad} -" +
                 "Fecha de Ingreso: ${fecha} -" +
-                "Cantidad: ${cantidad} -" +
+                "Cantidad: ${participantes} -" +
                 "Latiud: ${latitud} -" +
                 "Longitud ${longitud}"
 
@@ -49,7 +49,7 @@ class FirebaseCompetenciaDTO (
         parcel.writeDouble(precio!!)
         parcel.writeString(disponibilidad)
         parcel.writeString(fecha)
-        parcel.writeInt(cantidad)
+        parcel.writeInt(participantes)
         parcel.writeDouble(latitud!!)
         parcel.writeDouble(longitud!!)
         parcel.writeString(idCompetidor)
